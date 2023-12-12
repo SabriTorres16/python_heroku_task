@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+from os import environ
+from os import path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-tlv)36c^h%me#0j)!67193036i0(q!%)rm_9k19_&32jf9!t3b'
+SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
 
 ALLOWED_HOSTS = []
 
@@ -68,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'python_heroku_task.wsgi.application'
+WSGI_APPLICATION = 'python_heroku_task.wsgi.app'
 
 
 # Database
@@ -77,11 +79,15 @@ WSGI_APPLICATION = 'python_heroku_task.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'python_heroku_task',
-        'USER': 'sample_user',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': environ.get('SUPABASE_PASSWORD'),
+        'HOST': environ.get('SUPABASE_HOST'),
         'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'verify-full',
+            'sslrootcert': path.join(BASE_DIR, 'prod-ca-2021.crt')
+        },
     }
 }
 
