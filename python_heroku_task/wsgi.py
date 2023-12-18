@@ -14,3 +14,5 @@ from django.core.wsgi import get_wsgi_app
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'python_heroku_task.settings')
 
 app = get_wsgi_app()
+
+application = app
