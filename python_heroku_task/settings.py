@@ -31,6 +31,8 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY')
 
 ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
+DEBUG=True
+
 
 # Application definition
 
